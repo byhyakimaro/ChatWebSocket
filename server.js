@@ -23,6 +23,9 @@ let messages = [];
 io.on('connection', socket => {
 	console.log(`Socket Novo: ${socket.id}`);
 
+	//envia as mensagem do array
+	socket.emit('previousMessages', messages);
+
 	//recebe as mensagems do front
 	socket.on('sendMessage', data => {
 		messages.push(data);

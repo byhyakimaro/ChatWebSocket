@@ -22,9 +22,15 @@
 		//mostra a mensagem no frontend
 		function renderMessage(message) {
 			$('.messages').innerHTML = $('.messages').innerHTML + `<div class="message"><strong>${message.author}: </strong>${message.message}</div>`;
-			$('input[name=username]').value = '';
 			$('input[name=message]').value = '';
 		};
+
+		//recebe as mensagens do array no backend
+		socket.on('previousMessage', function(messages) {
+			for (message of messages) {
+				renderMessage(mensage)
+			}
+		});
 
 		//recebe as mensagens do backend
 		socket.on('receivedMessage', function(message) {
