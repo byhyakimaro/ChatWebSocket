@@ -54,6 +54,8 @@
 
 				//Envia para o socket sua mensagem do front
 				socket.emit('sendMessage', messageObject);
+			} else {
+				alert('preencha os campos')
 			}
 		});
 	</script>
