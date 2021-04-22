@@ -38,9 +38,13 @@ button {
 }
 
 .messages {
+	overflow-y: scroll;
   width: 60vw;
   height: 40vw;
   margin: 2vw 0;
   border: 1px solid #ddd;
   padding: 2vw;
+}
+.messages::-webkit-scrollbar {
+	display: none;
 }
