@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+	<link rel="stylesheet" href="style.css">
+	<title>Document</title>
+</head>
+<body>
+	<form id="chat">
+		<input type="text" name="username" placeholder="Digite Seu Nickname">
+		<div class="messages"></div>
+		<input type="text" name="message" placeholder="Digite uma messagem">
+		<button type="submit">Enviar</button>
+	</form>
+	<script type="text/javascript">
+		let $ = document.querySelector.bind(document);
+		//conectar socket no front
+		var socket = io('/');
+
+		//mostra a mensagem no frontend
+		function renderMessage(message) {
+			$('.messages').innerHTML = $('.messages').innerHTML + `<div class="message"><strong>${message.author}: </strong>${message.message}</div>`;
+			$('input[name=username]').value = '';
+			$('input[name=message]').value = '';
+		};
+
+		//recebe as mensagens do backend
+		socket.on('receivedMessage', function(message) {
+			renderMessage(message)
+		});
+
+		//click in button in form
+		$('#chat').addEventListener("submit", (event) => {
+			event.preventDefault();
+
+			var author = $('input[name=username]').value;
+			var message = $('input[name=message]').value;
+
+			if(author.length && message.length) {
+				var messageObject = {
+					author: author,
+					message: message
+				};
+
+				renderMessage(messageObject);
+
+				//Envia para o socket sua mensagem do front
+				socket.emit('sendMessage', messageObject);
+			}
+		});
+	</script>
+</body>
+</html>
