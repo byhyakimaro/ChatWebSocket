@@ -26,9 +26,9 @@
 		};
 
 		//recebe as mensagens do array no backend
-		socket.on('previousMessage', function(messages) {
+		socket.on('previousMessages', function(messages) {
 			for (message of messages) {
-				renderMessage(mensage)
+				renderMessage(message)
 			}
 		});
 
