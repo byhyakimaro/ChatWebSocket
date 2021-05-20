@@ -24,6 +24,12 @@
 			$('.messages').innerHTML = $('.messages').innerHTML + `<div class="message"><strong>${message.author}: </strong>${message.message}</div>`;
 		};
 
+		// Toca o som da notificão
+		function notify() {
+			var audio = new Audio('./songs/blip.wav');
+			audio.play();
+		}
+
 		//recebe as mensagens do array no backend
 		socket.on('previousMessages', function(messages) {
 			for (message of messages) {
@@ -33,7 +39,8 @@
 
 		//recebe as mensagens do backend
 		socket.on('receivedMessage', function(message) {
-			renderMessage(message)
+			renderMessage(message);
+			notify();
 		});
 
 		//click in button in form
