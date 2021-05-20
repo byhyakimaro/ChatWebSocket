@@ -22,7 +22,6 @@
 		//mostra a mensagem no frontend
 		function renderMessage(message) {
 			$('.messages').innerHTML = $('.messages').innerHTML + `<div class="message"><strong>${message.author}: </strong>${message.message}</div>`;
-			$('input[name=message]').value = '';
 		};
 
 		//recebe as mensagens do array no backend
@@ -54,6 +53,9 @@
 
 				//Envia para o socket sua mensagem do front
 				socket.emit('sendMessage', messageObject);
+				
+				//Limpa a caixa de mensagem
+				$('input[name=message]').value = '';
 			} 
 			else {
 				alert('preencha os campos')
